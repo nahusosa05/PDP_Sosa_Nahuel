@@ -66,3 +66,9 @@ data Figura = Circulo { radio :: Double }
 area :: Figura -> Double
 area (Circulo r) = pi * r^2
 area (Rectangulo b h) = b * h -- Pattern matching sobre los campos del data
+
+{- HLINT ignore "Use list literal" -}
+{- HLINT ignore "Eta reduce" -}
+{- HLINT ignore "Use maximum" -}
+{- HLINT ignore "Use sum" -}
+{- HLINT ignore "Use foldr" -}
