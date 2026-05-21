@@ -4,9 +4,6 @@
 {-
     DOMINIO APLICADO: POLÍTICOS
 -}
-{- HLINT ignore "Eta reduce" -}
-{- HLINT ignore "Use zip" -}
-{- HLINT ignore "Use (,)" -}
 
 data Politico = Politico { 
     proyectosPresentados :: [String], 
@@ -163,3 +160,7 @@ productosZipWith items prices = zipWith (\x y -> (x,y)) items prices
        Escribir map (nombre . filter aprobo) da error porque intento componer una función que espera un 
        elemento individual (nombre) con una que devuelve una lista completa (filter).
 -}
+
+{- HLINT ignore "Eta reduce" -}
+{- HLINT ignore "Use zip" -}
+{- HLINT ignore "Use (,)" -}
