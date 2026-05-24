@@ -1,5 +1,3 @@
-{- HLINT ignore "Use list literal" -}
-{- HLINT ignore "Eta reduce" -}
 import GHC.ExecutionStack (Location(functionName))
 
 {- 
@@ -64,3 +62,6 @@ seleccionar funcion numeros = [nro | nro <- numeros, funcion nro]
 
 -- Esta es de ejemplo, se pueden realizar pero vamos a usar las que vienen en el prelude
 -- cómo filter, map, any o all, cómo algunos ejemplos. Pero de igual manera algunas las vamos a crear.
+
+{- HLINT ignore "Use list literal" -}
+{- HLINT ignore "Eta reduce" -}
