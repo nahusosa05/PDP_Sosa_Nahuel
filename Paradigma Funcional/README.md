@@ -21,6 +21,7 @@ Archivos de soporte con anotaciones, firmas nativas y esquemas lógicos vistos e
 - **[05_recursividad.hs](./05_recursividad.hs)** : Recursividad pura sobre listas y funcionamiento de fold.
 
 - **[06_lazy_evaluation.hs](./06_lazy_evaluation.hs)** : Cómo funciona la Lazy Evaluation en Haskell.
+- **[07_poliformismo_parametrico.hs](./07_poliformismo_parametrico.hs)** : Funcionamiento de el Poliformismo Paramétrico y AD-HOC (Type Classes).
 
 ### 📖 Practica
 
@@ -29,3 +30,4 @@ Resolución de ejercicios propuestos en clase:
 - **[04_practica_orden_superior.hs](./04_practica_orden_superior.hs)** : Ejercicios de práctica de orden superior.
 - **[05_practica_recursividad_orden_superior.hs](./05_practica_recursividad_orden_superior.hs)** : Ejercicios de recursividad con implementaciones de fold.
 - **[06_practica_lazy_evaluation.hs](./06_practica_lazy_evaluation.hs)** : Ejercicios de lazy evaluation, fold y orden superior.
+- **[07_practica_poliformismo_parametrico.hs](./07_practica_poliformismo_parametrico.hs)** : Ejercicios de poliformismo paramétrico y uso de Type Classes para definir funciones.
