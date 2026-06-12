@@ -1,4 +1,5 @@
 {- HLINT ignore "Eta reduce" -}
+
 import Text.Show.Functions
 import Data.List 
 
@@ -104,3 +105,60 @@ type Parque = [Atraccion]
 
 disneyNoExistis :: Parque -> Bool
 disneyNoExistis atracciones = all (null . reparaciones) . filter ((>5) . length . nombre ) $ atracciones
+
+
+--    Punto 4: Reparaciones piola
+
+reparacionesPiolasRec :: [Reparacion] -> Atraccion -> Bool
+reparacionesPiolasRec [] _ = True
+reparacionesPiolasRec [_] _ = True
+reparacionesPiolasRec (rep:reps) atrac =
+    sistemaDeScoring ((trabajo rep) atrac) > sistemaDeScoring atrac && 
+    reparacionesPiolasRec reps ((trabajo rep) atrac)
+
+tieneReparacionesPiola :: Atraccion -> Bool
+tieneReparacionesPiola atrac = reparacionesPiolasRec (reparaciones atrac) atrac
+
+--    Punto 5: Manny a la Obra
+
+{-
+    Queremos  modelar  un  proceso  que  realice  los  trabajos de las reparaciones pendientes 
+    sobre  una  atracción.  Tener  en  cuenta  que  luego  de  realizar  todas  las  reparaciones  se 
+    eliminan  todas  las  reparaciones  de  la  lista  y  se  debe  colocar  el  indicador  fuera  de 
+    mantenimiento. 
+    Se pide que además muestre un ejemplo de cómo podría evaluar por consola el proceso 
+    para una actividad cualquiera. 
+-}
+
+finalizarMantenimiento :: Atraccion -> Atraccion
+finalizarMantenimiento atrac = atrac {
+    mantenimiento = False,
+    reparaciones = []
+}
+
+ejecutarReparaciones :: [Reparacion] -> Atraccion -> Atraccion
+ejecutarReparaciones reps atrac = foldl (\atracModificada rep -> (trabajo rep) atracModificada) atrac reps
+
+reparacionesPendientes :: Trabajo
+reparacionesPendientes atraccion = finalizarMantenimiento . ejecutarReparaciones (reparaciones atraccion) $ atraccion
+
+{-
+    Punto 6: Estoy cansado jefe... 
+    Si una atracción tiene una cantidad infinita de reparaciones, ¿sería posible obtener un valor 
+    computable para la función del punto anterior? ¿Qué ocurriría con una lista de reparaciones 
+    infinita en el punto 4? Justifique sus respuestas relacionándolo con un concepto visto en la 
+    materia. 
+-}
+
+{-
+    Para el Punto 5: No es posible obtener un valor computable. La función utiliza un plegado (foldl) 
+    que debe recorrer la lista de izquierda a derecha para procesar las reparaciones. Al ser una lista 
+    infinita, el plegado se queda computando infinitamente y jamás puede retornar la atracción modificada 
+    ni aplicar la función de cierre. El programa diverge.
+
+    Para el Punto 4: En el caso general, tampoco es posible obtener un valor computable y el programa diverge. 
+    Debido a la naturaleza de la lista infinita, la función recursiva jamás alcanzará sus casos 
+    base ([] o [_]). El programa continuará realizando llamados recursivos eternamente a menos que ocurra un 
+    cortocircuito por Lazy Evaluation si alguna reparación da False en la comparación de puntajes, interrumpiendo 
+    la evaluación del &&. Si todas las reparaciones son piolas, no converge.
+-}
