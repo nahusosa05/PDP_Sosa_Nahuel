@@ -1,82 +1,67 @@
-% Sócrates es humano
+/* ============================================================================
+   Clase: 19/06/2026 - Lógico I
+   Temas: Base de Conocimientos, Predicados, Aridad, Principio de Universo
+          Cerrado, Conjunción (,), Disyunción (múltiples cláusulas), 
+          Negación (not/1) e Introducción a la Inversibilidad.
+   ============================================================================ */
+
+% -----------------------------------------------------------------------------
+% 1. PREDICADOS, HECHOS Y REGLAS
+% -----------------------------------------------------------------------------
+
+% Hecho: Afirmación incondicional de la realidad.
+% humano/1: El predicado 'humano' tiene aridad 1 (monádico).
 humano(socrates).
+humano(platon).
 
-% Todos los humanos son mortales
-% Predicado   :- (se lee "si") Antecedente
-% Las variables inician con mayusculas => Persona
-% Es decir que pregunta "Persona es mortal si 'humano(Persona)' "
-% el único que verifica es socrates, ya que es el declarado en la base
-% de conocimiento.
-% Predicado mixto, usa reglas y hechos.
-mortal(Persona) :- humano(Persona).
+% Regla: Afirmación condicional. Posee cabeza y antecedente (separados por :-).
+% mortal/1: Una Persona es mortal SI es humano.
+% 'Persona' inicia con Mayúscula => Es una Variable.
+mortal(Persona) :- 
+    humano(Persona).
 
 /*
-    La afirmación de "Sócrates es humano" es un hecho. 
-    En cambio, "Todos los humanos son mortales" es una regla.
-
-    La principal diferencia entre hecho y la regla es que la regla
-    tiene un antecedente y el hecho no, el hecho es verdadero siempre 
-    (es un axioma).
+   Axioma teórico:
+   - Base de Conocimientos: Conjunto de predicados (hechos y reglas).
+   - Principio de Universo Cerrado (PUC): Todo lo que no esté afirmado 
+     o no pueda ser deducido lógicamente a partir de las reglas, SE ASUME FALSO.
 */
 
-/*
-    La abstracción fundamental del paradigma lógico son los predicados.
-    Al conjunto de predicados (hechos y reglas) lo llamamos base de conocimiento.
-*/
 
-/*
-    Principio de universo cerrado: 
-    - El motor asume como falso todo lo que no pueda probar como verdadero.
-*/
+% -----------------------------------------------------------------------------
+% 2. CONJUNCIÓN LÓGICA ( Y - Representada por la coma ',' )
+% -----------------------------------------------------------------------------
 
-% CONJUNCIÓN AD
-% Dos personas se pueden comunicar si hablan el mismo idioma.
+% habla/2: Expresa la relación entre una persona y un idioma.
 habla(juan, espaniol).
 habla(juan, ingles).
 habla(juan, italiano).
 habla(marcela, espaniol).
 habla(hernan, aleman).
 
-seComunican(Persona, OtraPersona):- 
+% Dos personas se comunican si hablan el MISMO idioma Y son personas distintas.
+seComunican(Persona, OtraPersona) :- 
     habla(Persona, Idioma), 
     habla(OtraPersona, Idioma), 
-    % distinto en prolog: \=
     Persona \= OtraPersona.
 
-/*
-    Si hacemos la consulta 'habla(juan, Cual).'
-    Nos va a devolver el primer elemento que encuentre en la base de conocimiento.
-    Si apretamos 'n' podemos seguir entre todos los idiomas que encuentre devolviendo:
-    ?- habla(juan, Cual).
-    Cual = espaniol ;
-    Cual = ingles ;
-    Cual = italiano.
-*/
 
-/*
-    Consultas: pueden ser individuales o existenciales.
-    ?- seComunican(hernan,_). "¿Hernan se comunica con alguien?" 
-    false
-
-    ?- seComunican()
-*/
-
-% CONJUNCIÓN OR
-% Una persona llega rápido a un lugar si vive en el barrio donde está dicho lugar
-% o si viaja en auto.
+% -----------------------------------------------------------------------------
+% 3. DISYUNCIÓN LÓGICA ( O - Representada con múltiples cláusulas )
+% -----------------------------------------------------------------------------
 
 viveEn(nora, almagro).
 viveEn(luis, caballito).
 viveEn(ana, lugano).
+
 estaEn(lugano, campus).
 estaEn(almagro, medrano).
+
 viajaEnAuto(nora).
 viajaEnAuto(matias).
 
-/*
-    La disyunción se consigue mediante la definición de varias cláusulas para el 
-    mismo predicado.
-*/
+% Una persona llega rápido a un lugar si vive en el barrio del lugar O viaja en auto.
+% Buenas prácticas: Se abstrae el "O" en cláusulas separadas para no duplicar código.
 
 llegaRapido(Persona, Lugar) :-
     viveEn(Persona, Barrio),
@@ -84,13 +69,12 @@ llegaRapido(Persona, Lugar) :-
 
 llegaRapido(Persona, Lugar) :-
     viajaEnAuto(Persona),
-    estaEn(_, Lugar).
+    estaEn(_, Lugar).  % Usamos variable anónima '_' porque no nos interesa el barrio.
 
-% NEGACIÓN NOT
-/*
-    Para negar el valor de verdad de una consulta utilizamos el predicado 'not/1'.
-    Ej: Una persona desaprueba una materia si cursa la misma pero no la aprueba.
-*/
+
+% -----------------------------------------------------------------------------
+% 4. NEGACIÓN ( not/1 ) Y PRINCIPIO DE UNIVERSO CERRADO
+% -----------------------------------------------------------------------------
 
 curso(julia, fisicaI).
 curso(emilio, inglesII).
@@ -100,94 +84,8 @@ curso(pedro, economia).
 aprobo(emilio, inglesII).
 aprobo(eli, quimica).
 
+% 'not/1' niega la condición de su argumento.
+% ¡OJO! 'not/1' NO genera valores, solo filtra variables previamente ligadas.
 desaprobo(Persona, Materia) :-
-    curso(Persona, Materia),
-    not(aprobo(Persona, Materia)).
-
-
-% INVERSIBILIDAD
-/*
-    Que un predicado sea inversible significa que los argumentos del mismo pueden
-    usarse tanto de entrada (como individuo) cómo de salida (con una variable libre).
-*/
-
-/*programaEn/2 <- El '/2' marca la cantidad de argumentos */
-programaEn(nahu, java).
-programaEn(juan, haskell).
-programaEn(caro, python).
-
-programaEn(_, c).
-/*
-    Cualquier cosa que consultemos en: programaEn(_, c).
-    Va a dar true ya que el motor no sabe cuantas personas programan en C.
-
-    ?- programaEn(Quien, c).
-    true.
-*/
-persona(nahuel).
-persona(juan).
-persona(caro).
-
-/*
-programaEnInversible (Persona, c) :-
-    persona(Persona).
-*/
-
-% Otro ejemplo
-siguiente(Numero, Siguiente) :-
-    numero(Numero),
-    Siguiente is Numero + 1.
-
-numero(Numero) :-
-    between(1, 10, Numero). % Generador de numeros entre 1 y 10.
-
-% Otro caso
-mayor(Mayor, Menor) :- 
-    numero(Mayor), % Le doy valor a esas variables
-    numero(Menor), 
-    Mayor > Menor.
-
-/*
-    El predicado not lo que niega es el valor de verdad de una consulta.
-    Cómo recibe una consulta en vez de un individuo, es de orden superior.
-    Es posible negar consultas individuales o existenciales.
-    ?- not(programaEn(nahuel,ruby))
-    true.
-
-    ?- not(programaEn(_, cobol))
-    false.
-*/
-
-% Necesidad de nuevo requerimiento
-irremplazable(Persona) :-
-    programaEn(Persona, Lenguaje),
-    not(programaEn(Alguien, Lenguaje)),
-    Alguien \= Persona.
-
-% FORALL/2 para todo
-quiere(juan, playa).
-quiere(juan, wifi).
-quiere(juan, teatro).
-quiere(ana, sierra).
-quiere(ana, playa).
-lugar(mardel, playa).
-lugar(mardel, wifi).
-lugar(mardel, teatro).
-lugar(mardel, casino).
-lugar(tandil, sierra).
-lugar(tandil, teatro).
-
-tieneTodoParaVeranear(Lugar, Persona):- 
-    lugarVeraneo(Lugar), 
-    persona(Persona), 
-    forall(quiere(Persona, Algo), lugar(Lugar, Algo)).
-
-lugarVeraneo(Lugar) :- lugar(Lugar, _).
-persona(Persona) :- quiere(Persona, _).
-
-% ORDEN SUPERIOR Y ALGO DE LISTAS
-/*
-    predicado que relaciona la materia con el año
-    y el predicado nota que relaciona 
-*/
-
+    curso(Persona, Materia),        % Genera las variables Persona y Materia
+    not(aprobo(Persona, Materia)).  % Filtra sobre las variables generadas
