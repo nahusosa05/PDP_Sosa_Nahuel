@@ -256,4 +256,3 @@ cuantoPaga(Persona, Linea, MontoMinimo) :-
       calcularCosto(Persona, Linea, OtrosMontos),
       MontoMinimo =< OtrosMontos  
     ).
-    

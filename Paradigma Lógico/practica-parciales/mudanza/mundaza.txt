@@ -1,0 +1,28 @@
+📦 Enunciado de Práctica: La Mudanza
+Una empresa de fletes necesita armar la carga de un camión para un viaje. 
+Tenemos registrados los paquetes listos para enviar en el depósito:
+
+[ paquete/3 (NombrePaquete, PesoEnKg, ValorAsegurado) ]
+paquete(heladera, 70, 800).
+paquete(microondas, 15, 200).
+paquete(televisor, 20, 600).
+paquete(sillon, 50, 450).
+paquete(computadora, 10, 700).
+paquete(mesa, 30, 300).
+
+🎯 Requerimiento
+Se pide definir el predicado cargaValida(CapacidadMaxima, MinimoPaquetes, Carga, GananciaTotal) 
+de forma que sea completamente inversible para la carga y los totales:
+Carga es una lista de paquetes seleccionados (subconjunto de los paquetes disponibles).
+MinimoPaquetes: La carga debe tener al menos esa cantidad de ítems (por ejemplo, al menos 3 paquetes).
+CapacidadMaxima: El peso total acumulado de los paquetes de la carga no puede superar este valor en kg.
+GananciaTotal: Es la suma del valor asegurado de todos los paquetes incluidos en la carga.
+
+🧪 Ejemplo de consulta esperada
+Si el camión tolera hasta 100kg y queremos llevar al menos 3 paquetes:
+
+?- cargaValida(100, 3, Carga, Ganancia).
+Carga = [microondas, televisor, computadora], Ganancia = 1500 ;
+Carga = [microondas, televisor, sillon, computadora], Ganancia = 1950 ;
+Carga = [microondas, televisor, mesa], Ganancia = 1100 ;
+...
