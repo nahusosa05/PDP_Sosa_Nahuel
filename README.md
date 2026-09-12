@@ -6,9 +6,9 @@ Repositorio dedicado a la cursada de **Paradigmas de Programación**. Acá se en
 
 ## 📂 Estructura del Proyecto
 
-- `./Paradigma Funcional` : Conceptos teóricos y prácticos del Paradigma Funcional hechos en Haskell.
-- `./Paradigma Lógico`: Conceptos teóricos y prácticos del Paradigma Funcional hechos en Prolog.
-- `./Paradigma Orientado a Objetos`: (Próximamente en Wollok).
+- `./paradigma-funcional` : Conceptos teóricos y prácticos del Paradigma Funcional hechos en Haskell.
+- `./paradigma-logico`: Conceptos teóricos y prácticos del Paradigma Funcional hechos en Prolog.
+- `./paradigma-objetos`: Conceptos teóricos y prácticos del Paradigma de Objetos hechos en Wollok.
 
 ---
 
