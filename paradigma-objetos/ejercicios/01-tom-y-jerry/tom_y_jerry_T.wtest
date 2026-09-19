@@ -1,4 +1,4 @@
-import tomYJerry.*
+import tom_y_jerry.*
 
 test "tom puede atrapar a jerry" {
     assert.that(tom.puedeAtrapar(jerry))
