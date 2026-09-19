@@ -1,0 +1,17 @@
+import polimorfismo.*
+
+test '\nPrueba 1:
+      - Pagar sueldo a: Baigorria
+      - 1. Métodos: negocio.pagarA(objeto), objeto.sueldo()
+      - 2. Se fija si el dinero disponible del negocio es el correcto.' {
+        negocio.pagarA(baigorria)
+        assert.equals(48500, negocio.disponible())
+}
+
+test '\nPrueba 2:
+      - Pagar sueldo a: Galvan
+      - Método: negocio.pagarA(objeto), objeto.sueldo()
+      - 2. Se fija si el dinero disponible del negocio es el correcto.' {
+        negocio.pagarA(galvan)
+        assert.equals(35000, negocio.disponible())
+}

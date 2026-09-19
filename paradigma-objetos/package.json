@@ -1,0 +1,6 @@
+{
+  "name": "paradigma-objetos",
+  "version": "1.0.0",
+  "sources": ["teoria", "ejercicios"],
+  "wollokVersion": "4.2.3"
+}

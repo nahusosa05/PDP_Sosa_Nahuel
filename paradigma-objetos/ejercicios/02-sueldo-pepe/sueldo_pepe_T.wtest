@@ -1,0 +1,20 @@
+import sueldo_pepe.*
+
+test "Test punto 1: " {
+    assert.equals(15800, pepe.sueldo())
+}
+
+test "Test punto 2:" {
+    pepe.categoria(gerente)
+    pepe.bonoResultado(bonoPorcentaje)
+    pepe.bonoPresentismo(bonoIndependienteDeFaltas)
+    assert.equals(11000, pepe.sueldo())
+}
+
+test "Test punto 3:" {
+    pepe.categoria(cadete)
+    pepe.bonoResultado(bonoPorcentaje)
+    pepe.bonoPresentismo(bonoDependeDeFaltas)
+    pepe.cantFaltas(0)
+    assert.equals(17500, pepe.sueldo())
+}

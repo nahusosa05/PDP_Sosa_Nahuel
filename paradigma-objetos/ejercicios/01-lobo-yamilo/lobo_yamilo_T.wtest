@@ -1,4 +1,4 @@
-import loboYamilo.*
+import lobo_yamilo.*
 
 test "conocer cantidad de calorias de yamilo" {
     assert.equals(100, yamilo.calorias())
