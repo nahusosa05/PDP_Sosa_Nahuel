@@ -81,7 +81,6 @@ class Chef {
 
 // Punto 3: Especialidad garde manger
 class GardeManger inherits Chef {
-    // Punto 2: catar un plato devuelve el puntaje del plato, max 10.
     override method calificacionCuandoNoCumpleExpectativas(plato) {
         return (plato.calorias() / 100).min(6)
     }
