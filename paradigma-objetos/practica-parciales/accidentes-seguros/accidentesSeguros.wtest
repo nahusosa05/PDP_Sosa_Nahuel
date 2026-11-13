@@ -1,0 +1,21 @@
+import accidentesSeguros.*
+
+describe "Test: Aseguradora de vehiculos" {
+    const aseguradora = new Aseguradora()
+    const fiat600 = new Vehiculo(poliza = new ContraTerceros(aseguradora = aseguradora))
+    const danio = new Danio(afectado = "semaforo", monto = 2000)
+    const siniestro = new Siniestro(danios = [danio])
+    const danioFiat600 = new Danio(afectado = fiat600, monto = 5000)
+    const otroSiniestro = new Siniestro(danios = [danioFiat600])
+
+    method initialize() {
+        fiat600.agregarSiniestro(otroSiniestro)
+    }
+    test "Vehiculo no involucrado en accidente" {
+        assert.throwsException({aseguradora.cuantoPagarPor(siniestro, fiat600)})
+    }
+
+    test "Monto no cubierto del Vehiculo por la Poliza en un Siniestro" {
+        assert.equals(5000, fiat600.montoNoCubiertoEnSiniestros())
+    }
+}
