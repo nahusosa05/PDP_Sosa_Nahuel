@@ -99,12 +99,12 @@ class Periodista {
     }
 
     method condicionPreferencia(noticia) {
-        if(!self.esPreferida(noticia) && self.verNoticiasPublicadasPreferidas()) {
+        if(!self.esPreferida(noticia) && self.superoLimiteNoPreferidasHoy()) {
             throw new DomainException(message = "El periodista no puede publicar mas de 2 noticias no preferidas.")
         }
     }
 
-    method verNoticiasPublicadasPreferidas() {
+    method superoLimiteNoPreferidasHoy() {
         const contador = noticiasPublicadas.count({noticia => !self.esPreferida(noticia) && noticia.fechaPublicacion() == new Date()})
         return contador >= 2
     }
